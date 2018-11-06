@@ -90,7 +90,9 @@ randomImage();
 // firstImg.src = allProducts[ 'randomFirst'].imgPath;
 
 
-
+firstImg.addEventListener('click', randomImage)
+secondImg.addEventListener('click', randomImage)
+thirdImg.addEventListener('click', randomImage)
 
 
 
