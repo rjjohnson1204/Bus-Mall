@@ -74,8 +74,14 @@ new Product('dog-duck', './img/dog-duck.jpg' , 'dog-duck');
 
 function randomImage(){
   var randomFirst = Math.floor(Math.random() * allProducts.length);
+  var randomSecond = Math.floor(Math.random() * allProducts.length);
+  var randomThird = Math.floor(Math.random() * allProducts.length);
+
 console.log(randomFirst)
 firstImg.src = allProducts[ randomFirst].imgPath;
+secondImg.src = allProducts[ randomSecond].imgPath;
+thirdImg.src = allProducts[ randomThird].imgPath;
+
 
 }
 
