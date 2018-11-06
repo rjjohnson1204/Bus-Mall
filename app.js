@@ -45,7 +45,7 @@
 // })()
 
 'use strict'
-
+var totalClicks = 0;
 var allProducts = [];
 var firstImg = document.getElementById('first')
 var secondImg = document.getElementById('second')
@@ -77,12 +77,17 @@ function randomImage(){
   var randomSecond = Math.floor(Math.random() * allProducts.length);
   var randomThird = Math.floor(Math.random() * allProducts.length);
 
-console.log(randomFirst)
 firstImg.src = allProducts[ randomFirst].imgPath;
 secondImg.src = allProducts[ randomSecond].imgPath;
 thirdImg.src = allProducts[ randomThird].imgPath;
+totalClicks++;
+console.log(totalClicks)
+if (totalClicks ===25){
+  firstImg.removeEventListener('click' , randomImage);
+  secondImg.removeEventListener('click' , randomImage);
+  thirdImg.removeEventListener('click' , randomImage);
 
-
+}
 }
 
 randomImage();
