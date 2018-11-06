@@ -50,6 +50,8 @@ var allProducts = [];
 var firstImg = document.getElementById('first')
 var secondImg = document.getElementById('second')
 var thirdImg = document.getElementById('third')
+var results = document.getElementById('results')
+console.log(results);
 
 
 
@@ -86,14 +88,20 @@ if (totalClicks ===25){
   firstImg.removeEventListener('click' , randomImage);
   secondImg.removeEventListener('click' , randomImage);
   thirdImg.removeEventListener('click' , randomImage);
-
+displayResults();
 }
 }
 
 randomImage();
 
 // firstImg.src = allProducts[ 'randomFirst'].imgPath;
-
+function displayResults(){
+  for (var i = 0; i < allProducts.length; i++){
+    var liEl = document.createElement('li');
+    liEl.textContent = allProducts[i].votes + ' votes for the ' + allProducts[i].name + ' and ' + allProducts[i].views + ' views.';
+    results.appendChild(liEl);
+  }
+}
 
 firstImg.addEventListener('click', randomImage)
 secondImg.addEventListener('click', randomImage)
