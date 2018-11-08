@@ -46,11 +46,6 @@ new Product('water-can' , './img/water-can.jpg' , 'water-can');
 new Product('wine-glass' , './img/wine-glass.jpg' , 'wine-glass');
 
 
-
-
-
-
-
 function randomImage() {
   var firstRandom = Math.floor(Math.random() * allProducts.length);
   var secondRandom = Math.floor(Math.random() * allProducts.length);
@@ -156,11 +151,17 @@ function displayResults() {
   };
 
   return new Chart(ctx, chartConfig);
-}
+    
+  }
+
 
 firstImg.addEventListener('click', handleImageClick);
 secondImg.addEventListener('click', handleImageClick);
 thirdImg.addEventListener('click', handleImageClick);
+
+
+
+
 
 
 
