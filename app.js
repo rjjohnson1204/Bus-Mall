@@ -1,14 +1,13 @@
 'use strict';
-
+var ctx = document.getElementById("myChart").getContext('2d');
 var totalClicks = 0;
 var allProducts = [];
-var previousImgShown = [];
 
 var firstImg = document.getElementById('first');
 var secondImg = document.getElementById('second');
 var thirdImg = document.getElementById('third');
-
 var results = document.getElementById('results');
+var previousImgShown = [];
 
 
 function Product(name, imgPath, altTxt){
@@ -17,6 +16,12 @@ function Product(name, imgPath, altTxt){
   this.altTxt = altTxt;
   this.views = 0;
   this.votes = 0;
+
+  var cOne = Math.floor(Math.random() * 255);
+  var cTwo = Math.floor(Math.random() * 255);
+  var cThree = Math.floor(Math.random() * 255);
+
+  this.bgColor = `rgba(${cOne}, ${cTwo}, ${cThree}, 0.2)`;
   allProducts.push(this);
 }
 
@@ -34,6 +39,16 @@ new Product('pen' , './img/pen.jpg' , 'pen');
 new Product('pet-sweep' , './img/pet-sweep.jpg' , 'pet-sweep');
 new Product('scissors' , './img/scissors.jpg' , 'scissors');
 new Product('shark' , './img/shark.jpg' , 'shark');
+new Product('sweep' , './img/sweep.png' , 'sweep');
+new Product('unicorn' , './img/unicorn.jpg' , 'unicorn');
+new Product('usb' , './img/usb.gif' , 'usb');
+new Product('water-can' , './img/water-can.jpg' , 'water-can');
+new Product('wine-glass' , './img/wine-glass.jpg' , 'wine-glass');
+
+
+
+
+
 
 
 function randomImage() {
@@ -87,21 +102,66 @@ function handleImageClick(event){
       allProducts[i].votes++;
     }
   }
+  randomImage();
+
 }
 
-function displayResults(){
-  for (var i = 0; i < allProducts.length; i++){
-    var liEl = document.createElement('li');
-    liEl.textContent = allProducts[i].votes + ' votes for the ' + allProducts[i].name + ' and ' + allProducts[i].views + ' views .';
-    results.appendChild(liEl);
-  }
-}
+// function displayResults(){
+//   for (var i = 0; i < allProducts.length; i++){
+//     var liEl = document.createElement('li');
+//     liEl.textContent = allProducts[i].votes + ' votes for the ' + allProducts[i].name + ' and ' + allProducts[i].views + ' views .';
+//     results.appendChild(liEl);
+//   }
+// }
+
+
 
 randomImage();
+//generate a string for every object
+function displayResults() {
+  var names = [];
+  for (var i = 0; i < allProducts.length; i++) {
+    names.push(allProducts[i].name);
+  }
+
+  var votes = [];
+  for (var j = 0; j < allProducts.length; j++) {
+    votes.push(allProducts[j].votes);
+  }
+
+  var colors = [];
+  for (var k = 0; k < allProducts.length; k++) {
+    colors.push(allProducts[k].bgColor);
+  }
+
+  var chartConfig = {
+    type: 'bar',
+    data: {
+      labels: names,
+      datasets: [{
+        label: '# of Votes',
+        data: votes,
+        backgroundColor: colors,
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  };
+
+  return new Chart(ctx, chartConfig);
+}
 
 firstImg.addEventListener('click', handleImageClick);
 secondImg.addEventListener('click', handleImageClick);
 thirdImg.addEventListener('click', handleImageClick);
+
 
 
 
