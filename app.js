@@ -26,21 +26,29 @@ function Product(name, imgPath, altTxt){
   this.bgColor = `rgba(${cOne}, ${cTwo}, ${cThree}, 0.2)`;
   allProducts.push(this);
 }
+console.log(localStorage.votes);
 
-new Product('bag', './img/bag.jpg' , 'bag');
-new Product('banana', './img/banana.jpg' , 'banana');
-new Product('bathroom', './img/bathroom.jpg' , 'bathroom');
-new Product('boots', './img/boots.jpg' , 'boots');
-new Product('breakfast', './img/breakfast.jpg' , 'breakfast');
-new Product('bubblegum', './img/bubblegum.jpg' , 'bubblegum');
-new Product('chair', './img/chair.jpg' , 'chair');
-new Product('cthulhu', './img/cthulhu.jpg' , 'cthulhu');
-new Product('dog-duck', './img/dog-duck.jpg' , 'dog-duck');
-new Product('dragon' , './img/dragon.jpg' , 'dragon');
-new Product('pen' , './img/pen.jpg' , 'pen');
-new Product('pet-sweep' , './img/pet-sweep.jpg' , 'pet-sweep');
-new Product('scissors' , './img/scissors.jpg' , 'scissors');
-new Product('shark' , './img/shark.jpg' , 'shark');
+if(localStorage.votes){
+  var storedVotes = JSON.parse(localStorage.getItem('votes'));
+  allProducts = storedVotes;
+
+} else {
+  new Product('bag', './img/bag.jpg' , 'bag');
+  new Product('banana', './img/banana.jpg' , 'banana');
+  new Product('bathroom', './img/bathroom.jpg' , 'bathroom');
+  new Product('boots', './img/boots.jpg' , 'boots');
+  new Product('breakfast', './img/breakfast.jpg' , 'breakfast');
+  new Product('bubblegum', './img/bubblegum.jpg' , 'bubblegum');
+  new Product('chair', './img/chair.jpg' , 'chair');
+  new Product('cthulhu', './img/cthulhu.jpg' , 'cthulhu');
+  new Product('dog-duck', './img/dog-duck.jpg' , 'dog-duck');
+  new Product('dragon' , './img/dragon.jpg' , 'dragon');
+  new Product('pen' , './img/pen.jpg' , 'pen');
+  new Product('pet-sweep' , './img/pet-sweep.jpg' , 'pet-sweep');
+  new Product('scissors' , './img/scissors.jpg' , 'scissors');
+  new Product('shark' , './img/shark.jpg' , 'shark');
+}
+
 
 
 function randomImage() {
@@ -83,7 +91,7 @@ function randomImage() {
     secondImg.removeEventListener('click' , handleImageClick);
     thirdImg.removeEventListener('click' , handleImageClick);
     displayResults();
-    localStorage.setItem('vote', JSON.stringify(allProducts));
+    localStorage.setItem('votes', JSON.stringify(allProducts));
   }
 }
 
