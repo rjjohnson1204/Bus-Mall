@@ -1,4 +1,5 @@
 'use strict';
+var ctx = document.getElementById("myChart").getContext('2d');
 
 var totalClicks = 0;
 var allProducts = [];
@@ -17,6 +18,12 @@ function Product(name, imgPath, altTxt){
   this.altTxt = altTxt;
   this.views = 0;
   this.votes = 0;
+
+  var cOne = Math.floor(Math.random() * 255);
+  var cTwo = Math.floor(Math.random() * 255);
+  var cThree = Math.floor(Math.random() * 255);
+
+  this.bgColor = `rgba(${cOne}, ${cTwo}, ${cThree}, 0.2)`;
   allProducts.push(this);
 }
 
@@ -76,6 +83,7 @@ function randomImage() {
     secondImg.removeEventListener('click' , handleImageClick);
     thirdImg.removeEventListener('click' , handleImageClick);
     displayResults();
+    localStorage.setItem('vote', JSON.stringify(allProducts));
   }
 }
 
@@ -89,13 +97,53 @@ function handleImageClick(event){
   }
 }
 
-function displayResults(){
-  for (var i = 0; i < allProducts.length; i++){
-    var liEl = document.createElement('li');
-    liEl.textContent = allProducts[i].votes + ' votes for the ' + allProducts[i].name + ' and ' + allProducts[i].views + ' views .';
-    results.appendChild(liEl);
+// function displayResults(){
+//   for (var i = 0; i < allProducts.length; i++){
+//     var liEl = document.createElement('li');
+//     liEl.textContent = allProducts[i].votes + ' votes for the ' + allProducts[i].name + ' and ' + allProducts[i].views + ' views .';
+//     results.appendChild(liEl);
+//   }
+// }
+function displayResults() {
+  var names = [];
+  for (var i = 0; i < allProducts.length; i++) {
+    names.push(allProducts[i].name);
   }
-}
+
+  var votes = [];
+  for (var j = 0; j < allProducts.length; j++) {
+    votes.push(allProducts[j].votes);
+  }
+
+  var colors = [];
+  for (var k = 0; k < allProducts.length; k++) {
+    colors.push(allProducts[k].bgColor);
+  }
+
+  var chartConfig = {
+    type: 'bar',
+    data: {
+      labels: names,
+      datasets: [{
+        label: '# of Votes',
+        data: votes,
+        backgroundColor: colors,
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  };
+
+  return new Chart(ctx, chartConfig);
+    
+  }
 
 randomImage();
 
@@ -105,29 +153,29 @@ thirdImg.addEventListener('click', handleImageClick);
 
 
 
-var myChart = new Chart(ctx, chartConfig);
+// var myChart = new Chart(ctx, chartConfig);
 
-if (localStorage.getItem('voteData')){
-  var voteData = localStorage.getItem('voteData');
-  myChart.data.datasets[0].data = JSON.parse(voteData);
-  myChart.update();
-}
+// if (localStorage.getItem('voteData')){
+//   var voteData = localStorage.getItem('voteData');
+//   myChart.data.datasets[0].data = JSON.parse(voteData);
+//   myChart.update();
+// }
 
-colorsEl.addEventListener('click' , function(event){
+// colorsEl.addEventListener('click' , function(event){
 
 
-var pId = event.target.id;
-var idx =colors.indexOf(pId);
+// var pId = event.target.id;
+// var idx =colors.indexOf(pId);
 
-if (idx !== -1){
-  myChart.data.datasets[0].data[idx] += 1;
-  console.log(myChart.data.datasets[0].data);
-  myChart.update();
+// if (idx !== -1){
+//   myChart.data.datasets[0].data[idx] += 1;
+//   console.log(myChart.data.datasets[0].data);
+//   myChart.update();
 
-  var jsonData = JSON.stringify (myChart.data.datasets[0].data);
-  localStorage.setItem('voteData', jsonData);
-}
-})
+//   var jsonData = JSON.stringify (myChart.data.datasets[0].data);
+//   localStorage.setItem('voteData', jsonData);
+// }
+// })
 
 
 
