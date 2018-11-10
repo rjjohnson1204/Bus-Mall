@@ -3,12 +3,13 @@ var ctx = document.getElementById("myChart").getContext('2d');
 
 var totalClicks = 0;
 var allProducts = [];
+var previousImgShown = [];
 
 var firstImg = document.getElementById('first');
 var secondImg = document.getElementById('second');
 var thirdImg = document.getElementById('third');
+
 var results = document.getElementById('results');
-var previousImgShown = [];
 
 
 function Product(name, imgPath, altTxt){
@@ -25,7 +26,6 @@ function Product(name, imgPath, altTxt){
   this.bgColor = `rgba(${cOne}, ${cTwo}, ${cThree}, 0.2)`;
   allProducts.push(this);
 }
-console.log(localStorage.votes);
 
 if(localStorage.votes){
   var storedVotes = JSON.parse(localStorage.getItem('votes'));
@@ -47,7 +47,6 @@ if(localStorage.votes){
   new Product('scissors' , './img/scissors.jpg' , 'scissors');
   new Product('shark' , './img/shark.jpg' , 'shark');
 }
-
 
 
 
@@ -103,16 +102,8 @@ function handleImageClick(event){
       allProducts[i].votes++;
     }
   }
-  randomImage();
+}
 
-
-// function displayResults(){
-//   for (var i = 0; i < allProducts.length; i++){
-//     var liEl = document.createElement('li');
-//     liEl.textContent = allProducts[i].votes + ' votes for the ' + allProducts[i].name + ' and ' + allProducts[i].views + ' views .';
-//     results.appendChild(liEl);
-//   }
-// }
 function displayResults() {
   var names = [];
   for (var i = 0; i < allProducts.length; i++) {
@@ -153,91 +144,15 @@ function displayResults() {
   return new Chart(ctx, chartConfig);
     
   }
-
-
-// function displayResults(){
-//   for (var i = 0; i < allProducts.length; i++){
-//     var liEl = document.createElement('li');
-//     liEl.textContent = allProducts[i].votes + ' votes for the ' + allProducts[i].name + ' and ' + allProducts[i].views + ' views .';
-//     results.appendChild(liEl);
-//   }
-// }
-
-
+  // function refreshSurvey (event) { //tied into button to reload page
+  //   event.preventDefault;
+  //   window.location.reload(true);
 
 randomImage();
-//generate a string for every object
-function displayResults() {
-  var names = [];
-  for (var i = 0; i < allProducts.length; i++) {
-    names.push(allProducts[i].name);
-  }
-
-  var votes = [];
-  for (var j = 0; j < allProducts.length; j++) {
-    votes.push(allProducts[j].votes);
-  }
-
-  var colors = [];
-  for (var k = 0; k < allProducts.length; k++) {
-    colors.push(allProducts[k].bgColor);
-  }
-
-  var chartConfig = {
-    type: 'bar',
-    data: {
-      labels: names,
-      datasets: [{
-        label: '# of Votes',
-        data: votes,
-        backgroundColor: colors,
-      }]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
-    }
-  };
-
-  return new Chart(ctx, chartConfig);
-    
-  }
-
 
 firstImg.addEventListener('click', handleImageClick);
 secondImg.addEventListener('click', handleImageClick);
 thirdImg.addEventListener('click', handleImageClick);
-
-
-
-// var myChart = new Chart(ctx, chartConfig);
-
-// if (localStorage.getItem('voteData')){
-//   var voteData = localStorage.getItem('voteData');
-//   myChart.data.datasets[0].data = JSON.parse(voteData);
-//   myChart.update();
-// }
-
-// colorsEl.addEventListener('click' , function(event){
-
-
-// var pId = event.target.id;
-// var idx =colors.indexOf(pId);
-
-// if (idx !== -1){
-//   myChart.data.datasets[0].data[idx] += 1;
-//   console.log(myChart.data.datasets[0].data);
-//   myChart.update();
-
-//   var jsonData = JSON.stringify (myChart.data.datasets[0].data);
-//   localStorage.setItem('voteData', jsonData);
-// }
-// })
 
 
 

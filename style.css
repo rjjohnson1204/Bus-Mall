@@ -4,3 +4,7 @@ img{
   object-fit: contain; 
   /* //maintains aspect ratio */
 }
+
+h1{
+  font-size: 40px;
+}
