@@ -1,10 +1,43 @@
+html{
+  background-color: rgb(78, 83, 83)
+}
 img{
   height: 250px;
   width: 250px;
   object-fit: contain; 
+  margin: auto;
+  width: 25%;
   /* //maintains aspect ratio */
+}
+#first{
+  border: 10px solid rgb(243, 208, 8);
+  border-top-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+
+}
+#second{
+  border: 10px solid rgb(243, 208, 8);
+  border-top-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+
+}
+#third{
+  border: 10px solid rgb(243, 208, 8);
+  border-top-left-radius: 40px;
+  border-bottom-right-radius: 40px;
 }
 
 h1{
-  font-size: 40px;
+  font-size: 50px;
+  font-family: 'Monoton', cursive;
+  margin: auto;
+  width: 50%;
+  text-align: center;
+  padding-top: 50px;
+  color: rgb(243, 208, 8)
+}
+
+div{
+  text-align: center;
+  padding-top: 50px;
 }

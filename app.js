@@ -121,7 +121,7 @@ function displayResults() {
   }
 
   var chartConfig = {
-    type: 'bar',
+    type: 'doughnut',
     data: {
       labels: names,
       datasets: [{
